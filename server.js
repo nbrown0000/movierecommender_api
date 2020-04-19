@@ -11,7 +11,7 @@ const axios = require('axios');
 app.get('/', (req,res) => res.send('Hello World!'));
 
 app.post('/search', (req,res) => {
-  const searchTerm = 'John Wick'.split(' ').join('+');
+  const searchTerm = req.body.keywords.split(' ').join('+');
   const fetchString = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.TMDB_APIKEY}&query=${searchTerm}`;
 
   axios.get(fetchString)
