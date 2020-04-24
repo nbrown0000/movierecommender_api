@@ -7,17 +7,22 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 const axios = require('axios');
-res.header('Access-Control-Allow-Origin', '*');
-res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+function allowCrossDomains() {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+}
 
 
 app.get('/', (req,res) => {
+  allowCrossDomains()
   res.send('Hello World!')}
 );
 
 
 app.get('/getGenres', (req,res) => {
+  allowCrossDomains()
   const fetchString = 'https://api.themoviedb.org/3/genre/movie/list?api_key='+
       process.env.TMDB_APIKEY+'&language=en-US'
   axios.get(fetchString)
@@ -26,6 +31,7 @@ app.get('/getGenres', (req,res) => {
 
 
 app.post('/searchByTitle', (req,res) => {
+  allowCrossDomains()
   let arrayOfFetchUrls = [];
   let total_pages = 0;
   const searchTerm = req.body.title.split(' ').join('+');
@@ -51,6 +57,7 @@ app.post('/searchByTitle', (req,res) => {
 
 
 app.post('/searchByGenres', (req,res) => {
+  allowCrossDomains()
   let arrayOfFetchUrls = [];
   let total_pages = 0;
   const fetchString = 'https://api.themoviedb.org/3/discover/movie?api_key='+
