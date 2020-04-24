@@ -2,7 +2,7 @@ if(process.env.NODE_ENV !== 'production') {
   require('dotenv').config({path: __dirname + '/.env'});
 }
 const express = require('express');
-const port = 5000;
+const port = process.env.PORT || 5000;
 const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
